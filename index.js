@@ -12,6 +12,9 @@ app.use(async (req, res) => {
 
   res.set(response.headers);
   res.status(response.statusCode);
+  res.set({
+      'Access-Control-Allow-Origin': '*'
+  });
   res.send(response.body);
 });
 
