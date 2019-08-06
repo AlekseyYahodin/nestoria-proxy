@@ -1,8 +1,13 @@
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const proxy = require('./proxy');
 
-app.use(async (req, res) => {
+const corsOptions = {
+  origin: '*'
+};
+
+app.use(cors(corsOptions), async (req, res) => {
   const path = req.path;
   const method = req.method;
   const qs = req.query;
@@ -12,9 +17,6 @@ app.use(async (req, res) => {
 
   res.set(response.headers);
   res.status(response.statusCode);
-  res.set({
-      'Access-Control-Allow-Origin': '*'
-  });
   res.send(response.body);
 });
 
